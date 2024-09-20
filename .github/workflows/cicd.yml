@@ -60,3 +60,24 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: ./*.jar
           target: ./deploy
+
+      - name: Execute build file
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            JAR_NAME=$(basename ./deploy/*.jar)
+            CURRENT_PID=$(pgrep -f $JAR_NAME)
+            if [ -z $CURRENT_PID ]
+            then
+              echo "  Pass"
+              sleep 1
+            else
+              echo "  Kill -15 $CURRENT_PID"
+              kill -15 $CURRENT_PID
+              sleep 5
+            fi
+            
+            nohup java -jar ./deploy/$JAR_NAME > log.out 2>&1 &
