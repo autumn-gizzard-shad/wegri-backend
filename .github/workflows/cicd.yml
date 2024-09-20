@@ -1,4 +1,4 @@
-name: Spring Boot CI
+name: Spring Boot CI/CD
 
 on:
   push:
@@ -40,3 +40,23 @@ jobs:
         with:
           name: wegri
           path: ./build/libs/*.jar
+
+  deploy:
+
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download build file from artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: wegri
+
+      - name: Copy build file to remote
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: ./*.jar
+          target: ./deploy
