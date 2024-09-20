@@ -29,6 +29,9 @@ jobs:
           echo "spring.datasource.username=$DB_USER" >> ./src/main/resources/application-private.properties
           echo "spring.datasource.password=$DB_PASSWORD" >> ./src/main/resources/application-private.properties
 
+      - name: Change gradlew permissions
+        run: chmod +x ./gradlew
+
       - name: Build with Gradle Wrapper
         run: ./gradlew bootJar
 
