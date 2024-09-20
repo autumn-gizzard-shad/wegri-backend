@@ -28,6 +28,10 @@ jobs:
           echo "spring.datasource.url=$DB_URL" >> ./src/main/resources/application-private.properties
           echo "spring.datasource.username=$DB_USER" >> ./src/main/resources/application-private.properties
           echo "spring.datasource.password=$DB_PASSWORD" >> ./src/main/resources/application-private.properties
+        env:
+          DB_URL: ${{ secrets.DB_URL }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
 
       - name: Change gradlew permissions
         run: chmod +x ./gradlew
@@ -79,5 +83,5 @@ jobs:
               kill -15 $CURRENT_PID
               sleep 5
             fi
-            
+
             nohup java -jar ./deploy/$JAR_NAME > log.out 2>&1 &
