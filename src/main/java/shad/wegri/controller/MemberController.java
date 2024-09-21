@@ -2,6 +2,7 @@ package shad.wegri.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,12 +20,13 @@ public class MemberController {
     private final MemberService memberService;
 
     @PostMapping("/login")
-    public LoginResponse login(@Valid @RequestBody LoginRequest loginRequest) {
-        return memberService.login(loginRequest);
+    public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
+        return ResponseEntity.ok().body(memberService.login(loginRequest));
     }
 
     @PostMapping("/register")
-    public void register(@Valid @RequestBody RegisterRequest registerRequest) {
+    public ResponseEntity register(@Valid @RequestBody RegisterRequest registerRequest) {
         memberService.register(registerRequest);
+        return ResponseEntity.ok().build();
     }
 }
