@@ -6,14 +6,13 @@ import org.springframework.http.HttpStatus;
 
 @Data
 @AllArgsConstructor
-@Builder
-public class MapResponseDto {
-    private final HttpStatus status;
+public class AddResponseDto {
+    private final HttpStatus result;
     private final String message;
     private Long id;
 
-    public MapResponseDto(final HttpStatus status, final String message) {
-        this.status = status;
+    public AddResponseDto(final HttpStatus status, final String message) {
+        this.result = status;
         this.message = message;
         this.id = null;
     }
