@@ -9,5 +9,5 @@ import org.springframework.http.HttpStatus;
 public class MapSearchResponseDto {
     private HttpStatus result;
     private String message;
-    private List<MapSearchDto> list;
+    private List<MapSearchDto> map_list;
 }
