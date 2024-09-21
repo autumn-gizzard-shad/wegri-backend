@@ -3,7 +3,6 @@ package shad.wegri.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
-@AllArgsConstructor
 @Entity
 @Getter
 public class Pin {

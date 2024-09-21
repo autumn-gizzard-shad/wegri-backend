@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@AllArgsConstructor
 @Getter
+@Table(name = "Map")
 public class Map {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,7 +16,7 @@ public class Map {
     @NonNull
     private String title;
 
-    @Column(name = "desc")
+    @Column(name = "description")
     private String desc;
 
     @Column(name = "emoji")
@@ -24,8 +24,7 @@ public class Map {
     private String emoji;
 
     @Builder
-    public Map(long id, String title, String desc, String emoji){
-        this.id = id;
+    public Map(String title, String desc, String emoji){
         this.title = title;
         this.desc = desc;
         this.emoji = emoji;
