@@ -3,7 +3,7 @@ package shad.wegri.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import shad.wegri.domain.Map;
-import shad.wegri.dto.MapAddRequestDTO;
+import shad.wegri.dto.MapAddRequestDto;
 import shad.wegri.repository.MapRepository;
 
 @RequiredArgsConstructor
@@ -11,7 +11,7 @@ import shad.wegri.repository.MapRepository;
 public class MapService {
     private final MapRepository mapRepository;
 
-    public Map saveMap(MapAddRequestDTO request) {
+    public Map saveMap(MapAddRequestDto request) {
         return mapRepository.save(request.toEntity());
     }
 }
