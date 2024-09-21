@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import shad.wegri.domain.Member;
 import shad.wegri.dto.LoginRequest;
 import shad.wegri.dto.LoginResponse;
+import shad.wegri.dto.MemberInfoResponse;
 import shad.wegri.dto.RegisterRequest;
 import shad.wegri.exception.AlreadyExistMemberException;
 import shad.wegri.exception.NoSuchMemberException;
@@ -53,5 +54,11 @@ public class MemberService {
             member.setImage(registerRequest.image());
         }
         memberRepository.save(member);
+    }
+
+    public MemberInfoResponse getMemberInfo(String memberId) {
+        Member member = memberRepository.findById(memberId)
+            .orElseThrow(NoSuchMemberException::new);
+        return new MemberInfoResponse(member.getId(), member.getImage(), member.getPoint());
     }
 }
