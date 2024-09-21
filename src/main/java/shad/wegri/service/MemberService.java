@@ -59,6 +59,6 @@ public class MemberService {
     public MemberInfoResponse getMemberInfo(String memberId) {
         Member member = memberRepository.findById(memberId)
             .orElseThrow(NoSuchMemberException::new);
-        return new MemberInfoResponse(member.getId(), member.getImage(), member.getPoint());
+        return member.toInfoResponse();
     }
 }

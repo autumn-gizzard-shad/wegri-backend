@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler({NoSuchMemberException.class, AlreadyExistMemberException.class})
+    @ExceptionHandler({NoSuchMemberException.class, AlreadyExistMemberException.class, NoSuchProductException.class})
     public ProblemDetail handleInvalidTokenException(RuntimeException runtimeException) {
         ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
         problemDetail.setDetail(runtimeException.getMessage());
