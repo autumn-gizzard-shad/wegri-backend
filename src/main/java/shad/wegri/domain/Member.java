@@ -12,6 +12,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import shad.wegri.dto.MemberInfoResponse;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -32,6 +33,10 @@ public class Member implements UserDetails {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public MemberInfoResponse toInfoResponse() {
+        return new MemberInfoResponse(id, image, point);
     }
 
     @Override
