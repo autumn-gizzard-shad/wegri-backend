@@ -18,7 +18,8 @@ import shad.wegri.service.PinService;
 @RestController
 @RequestMapping("/api/maps")
 public class MapController {
-    public int bicycleMap = 2;
+    public int bicycleMap = 1;
+    private List<MapSearchDto> mapList;
     @Autowired
     MapService mapService;
 
@@ -27,6 +28,8 @@ public class MapController {
 
     @Autowired
     BycicleService bycicleService;
+
+
 
     // map add
     @PostMapping("/")
@@ -40,16 +43,20 @@ public class MapController {
     // map search
     @GetMapping("/")
     public ResponseEntity<MapSearchResponseDto> searchMap() {
-        List<MapSearchDto> results = mapService.getAllMapsWithPinCount();
+        mapList = mapService.getAllMapsWithPinCount();
+        List<MapSearchDto> results;
+        if (mapList.size() > 4) results = mapList.subList(0,4);
+        else results = mapList;
 
         return ResponseEntity.status(HttpStatus.OK)
             .body(new MapSearchResponseDto(HttpStatus.OK, "Map searched successfully", results));
     }
 
     @GetMapping("/more")
-    public String searchMoreMap() { // 더보기 누를 경우 맵 추가
+    public ResponseEntity<MapSearchResponseDto> searchMoreMap() { // 더보기 누를 경우 맵 추가
 
-        return "더보기 연결 됨";
+        return ResponseEntity.status(HttpStatus.OK)
+            .body(new MapSearchResponseDto(HttpStatus.OK, "More map searched successfully", mapList));
     }
 
     @GetMapping("/{map_id}/pins")
