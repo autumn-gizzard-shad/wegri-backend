@@ -1,4 +1,4 @@
-package shad.wegri.jwt;
+package shad.wegri.util.jwt;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

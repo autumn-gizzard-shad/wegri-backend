@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import shad.wegri.dto.LoginRequest;
 import shad.wegri.dto.LoginResponse;
 import shad.wegri.exception.NoSuchMemberException;
-import shad.wegri.jwt.JwtProvider;
+import shad.wegri.util.jwt.JwtProvider;
 import shad.wegri.repository.MemberRepository;
 
 @Service
