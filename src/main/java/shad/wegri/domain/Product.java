@@ -35,7 +35,11 @@ public class Product {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    public void setMember(Member member) {
+        this.member = member;
+    }
+
     public ProductResponse toResponse() {
-        return new ProductResponse(id, name, image,description, price);
+        return new ProductResponse(id, name, image, description, price);
     }
 }
