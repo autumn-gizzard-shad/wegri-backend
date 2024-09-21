@@ -36,7 +36,7 @@ public class MemberService {
                 .authenticate(authenticationToken);
 
             // 3. authentication 객체로 JWT 생성
-            return new LoginResponse(jwtProvider.createToken(authentication));
+            return new LoginResponse(jwtProvider.createToken(authentication.getName()));
         } catch (Exception e) {
             throw new NoSuchMemberException();
         }
