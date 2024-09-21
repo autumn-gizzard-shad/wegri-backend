@@ -1,9 +1,9 @@
 package shad.wegri.dto;
 
 public record MemberInfoResponse(
-    String id,
-    String image,
-    int point
+    String member_id,
+    String member_image,
+    int member_point
 ) {
 
 }

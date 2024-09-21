@@ -11,6 +11,7 @@ import shad.wegri.argumentresolver.LoginMemberIdArgumentResolver;
 @Configuration
 @RequiredArgsConstructor
 public class WebMvcConfig implements WebMvcConfigurer {
+
     private final LoginMemberIdArgumentResolver loginMemberIdArgumentResolver;
 
     @Override
