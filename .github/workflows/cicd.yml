@@ -30,12 +30,16 @@ jobs:
           echo "spring.datasource.password=$DB_PASSWORD" >> ./src/main/resources/application-private.properties
           echo "jwt.secret-key=$JWT_SECRET_KEY" >> ./src/main/resources/application-private.properties
           echo "jwt.access-token-expiration-time=$JWT_ACCESS_TOKEN_EXPIRATION_TIME" >> ./src/main/resources/application-private.properties
+          echo "kakao.client-id=$KAKAO_CLIENT_ID" >> ./src/main/resources/application-private.properties
+          echo "kakao.redirect-uri=$KAKAO_REDIRECT_URI" >> ./src/main/resources/application-private.properties
         env:
           DB_URL: ${{ secrets.DB_URL }}
           DB_USER: ${{ secrets.DB_USER }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
           JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
           JWT_ACCESS_TOKEN_EXPIRATION_TIME: ${{ secrets.JWT_ACCESS_TOKEN_EXPIRATION_TIME }}
+          KAKAO_CLIENT_ID: ${{ secrets.KAKAO_CLIENT_ID }}
+          KAKAO_REDIRECT_URI: ${{ secrets.KAKAO_REDIRECT_URI }}
 
       - name: Change gradlew permissions
         run: chmod +x ./gradlew
