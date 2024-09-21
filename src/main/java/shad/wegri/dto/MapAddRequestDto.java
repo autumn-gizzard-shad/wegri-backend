@@ -5,7 +5,7 @@ import shad.wegri.domain.Map;
 
 @AllArgsConstructor
 @Getter
-public class MapAddRequestDTO {
+public class MapAddRequestDto {
 
     private String map_title;
     private String map_desc;
