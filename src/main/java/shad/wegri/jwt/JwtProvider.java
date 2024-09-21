@@ -3,11 +3,14 @@ package shad.wegri.jwt;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import javax.crypto.SecretKey;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -35,8 +38,21 @@ public class JwtProvider {
 
     public Authentication getAuthentication(String token) {
         String id = parseToken(token);
-        UserDetails userDetails = new User(id, null, null);
-        return new UsernamePasswordAuthenticationToken(userDetails, null, null);
+        Collection<? extends GrantedAuthority> authorities = new ArrayList<>();
+        UserDetails userDetails = new User(id, "", authorities);
+        return new UsernamePasswordAuthenticationToken(userDetails, "", authorities);
+    }
+
+    public boolean validateToken(String token) {
+        try {
+            Jwts.parser()
+                .verifyWith(secretKey)
+                .build()
+                .parseSignedClaims(token);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     private String parseToken(String token) {
