@@ -24,7 +24,7 @@ public class Member implements UserDetails {
 
     private String password;
 
-    private Byte[] image;
+    private byte[] image;
 
     private int point;
 

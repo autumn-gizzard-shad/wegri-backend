@@ -31,7 +31,7 @@ public class SecurityConfig {
             .httpBasic((config) -> config.disable())
             .csrf((config) -> config.disable())
             .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .authorizeRequests((request) -> request
+            .authorizeHttpRequests((request) -> request
                 // 특정 API 요청만 허용
                 .requestMatchers("/api/members/register", "/api/members/login")
                 .permitAll()
