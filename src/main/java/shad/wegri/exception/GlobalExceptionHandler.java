@@ -21,4 +21,11 @@ public class GlobalExceptionHandler {
         problemDetail.setDetail(invalidTokenException.getMessage());
         return problemDetail;
     }
+
+    @ExceptionHandler(InvalidKakaoTokenException.class)
+    public ProblemDetail handleInvalidKakaoTokenException(InvalidKakaoTokenException invalidKakaoTokenException) {
+        ProblemDetail problemDetail = ProblemDetail.forStatus(invalidKakaoTokenException.getStatusCode());
+        problemDetail.setDetail(invalidKakaoTokenException.getReason());
+        return problemDetail;
+    }
 }

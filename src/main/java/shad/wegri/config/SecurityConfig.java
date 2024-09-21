@@ -33,7 +33,7 @@ public class SecurityConfig {
             .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests((request) -> request
                 // 특정 API 요청만 허용
-                .requestMatchers("/api/members/register", "/api/members/login")
+                .requestMatchers("/api/members/register", "/api/members/login", "/api/members/kakao/*")
                 .permitAll()
                 .anyRequest()
                 .authenticated()

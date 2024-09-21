@@ -27,10 +27,10 @@ public class JwtProvider {
         this.accessTokenExpirationTime = accessTokenExpirationTime;
     }
 
-    public String createToken(Authentication authentication) {
+    public String createToken(String id) {
         Date now = new Date();
         return Jwts.builder()
-            .claim("id", authentication.getName())
+            .claim("id", id)
             .expiration(new Date(now.getTime() + accessTokenExpirationTime))
             .signWith(secretKey)
             .compact();
