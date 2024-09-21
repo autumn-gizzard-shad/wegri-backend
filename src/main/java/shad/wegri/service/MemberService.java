@@ -6,11 +6,14 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import shad.wegri.domain.Member;
 import shad.wegri.dto.LoginRequest;
 import shad.wegri.dto.LoginResponse;
+import shad.wegri.dto.RegisterRequest;
+import shad.wegri.exception.AlreadyExistMemberException;
 import shad.wegri.exception.NoSuchMemberException;
-import shad.wegri.util.jwt.JwtProvider;
 import shad.wegri.repository.MemberRepository;
+import shad.wegri.util.jwt.JwtProvider;
 
 @Service
 @RequiredArgsConstructor
@@ -36,5 +39,19 @@ public class MemberService {
         } catch (Exception e) {
             throw new NoSuchMemberException();
         }
+    }
+
+    public void register(RegisterRequest registerRequest) {
+        if (memberRepository.existsById(registerRequest.member_id())) {
+            throw new AlreadyExistMemberException();
+        }
+        Member member = Member.builder()
+            .id(registerRequest.member_id())
+            .password(bCryptPasswordEncoder.encode(registerRequest.password()))
+            .build();
+        if (registerRequest.image() != null) {
+            member.setImage(registerRequest.image());
+        }
+        memberRepository.save(member);
     }
 }

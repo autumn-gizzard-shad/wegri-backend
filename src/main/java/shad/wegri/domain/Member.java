@@ -2,6 +2,7 @@ package shad.wegri.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import java.util.Collection;
 import java.util.List;
 import lombok.AccessLevel;
@@ -24,9 +25,14 @@ public class Member implements UserDetails {
 
     private String password;
 
-    private byte[] image;
+    @Lob
+    private String image;
 
     private int point;
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
