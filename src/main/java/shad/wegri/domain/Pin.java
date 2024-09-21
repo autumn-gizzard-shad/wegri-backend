@@ -3,9 +3,11 @@ package shad.wegri.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
+@RequiredArgsConstructor
 @Entity
 @Getter
-@Table(name = "PIN")
+@Setter
+@Table(name = "Pin")
 public class Pin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // DB에서 1씩 증가시키면서 id 생성
@@ -13,16 +15,20 @@ public class Pin {
     private long id;
 
     @Column(name = "map_id")
+    @NonNull
     private long map_id;
 
     @Column(name = "date")
-    private final String date;
+    @NonNull
+    private String date;
 
     @Column(name = "latitude")
-    private final double latitude;
+    @NonNull
+    private double latitude;
 
     @Column(name = "longitude")
-    private final double longitude;
+    @NonNull
+    private double longitude;
 
     @Column(name = "image")
     private String image;
@@ -32,6 +38,13 @@ public class Pin {
 
     @Column(name = "is_rent")
     private Boolean is_rent;
+
+    public Pin(){
+        this.map_id = 0;
+        this.date = "20240921";
+        this.latitude = 0.0;
+        this.longitude = 0.0;
+    }
 
     @Builder
     public Pin(long map_id, String date, double latitude, double longitude, String image, String provider, Boolean is_rent) {

@@ -11,6 +11,8 @@ import shad.wegri.dto.AddResponseDto;
 import shad.wegri.dto.MapSearchDto;
 import shad.wegri.dto.MapSearchResponseDto;
 import shad.wegri.dto.PinAddRequestDto;
+import shad.wegri.dto.PinSearchDto;
+import shad.wegri.dto.PinSearchResponseDto;
 import shad.wegri.service.BycicleService;
 import shad.wegri.service.MapService;
 import shad.wegri.service.PinService;
@@ -20,6 +22,7 @@ import shad.wegri.service.PinService;
 public class MapController {
     public int bicycleMap = 1;
     private List<MapSearchDto> mapList;
+
     @Autowired
     MapService mapService;
 
@@ -60,12 +63,14 @@ public class MapController {
     }
 
     @GetMapping("/{map_id}/pins")
-    public String searchPin(@PathVariable("map_id") long map_id) { // 핀 조회
-        return "핀 조회 연결됨";
+    public ResponseEntity<PinSearchResponseDto> searchPin(@PathVariable("map_id") long map_id) { // 핀 조회
+
+        return ResponseEntity.status(HttpStatus.OK)
+            .body(new PinSearchResponseDto(HttpStatus.OK, "Pin searched successfully", pinService.getPinsByMapId(map_id)));
     }
 
     @PostMapping("/{map_id}/pins")
-    public ResponseEntity<AddResponseDto> addPin(@PathVariable("map_id") long map_id,
+    public ResponseEntity<AddResponseDto> savePin(@PathVariable("map_id") long map_id,
                                         @RequestBody PinAddRequestDto request) { // 핀 추가
         request.setMap_id(map_id);
         if (map_id == bicycleMap) {
