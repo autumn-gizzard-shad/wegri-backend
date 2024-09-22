@@ -35,6 +35,10 @@ public class Member implements UserDetails {
         this.image = image;
     }
 
+    public void setPoint(int point) {
+        this.point = point;
+    }
+
     public MemberInfoResponse toInfoResponse() {
         return new MemberInfoResponse(id, image, point);
     }

@@ -32,7 +32,10 @@ public class ProductService {
             .orElseThrow(NoSuchProductException::new);
         Member member = memberRepository.findById(memberId)
             .orElseThrow(NoSuchMemberException::new);
-        product.setMember(member);
-        productRepository.save(product);
+        if(member.getPoint() >= product.getPrice()) {
+            member.setPoint(member.getPoint()-product.getPrice());
+            product.setMember(member);
+            productRepository.save(product);
+        }
     }
 }
