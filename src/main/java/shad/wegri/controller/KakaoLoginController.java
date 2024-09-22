@@ -2,6 +2,7 @@ package shad.wegri.controller;
 
 import java.net.URI;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -35,7 +36,10 @@ public class KakaoLoginController {
     }
 
     @GetMapping("/oauth")
-    public ResponseEntity<LoginResponse> kakaoCallback(@RequestParam("code") String code) {
-        return ResponseEntity.ok().body(kakaoLoginService.login(code));
+    public ResponseEntity<LoginResponse> kakaoCallback(@RequestParam("code") String code, @Value("${front-end.main-url}") String mainUrl) {
+        String url = mainUrl + "?token=" + kakaoLoginService.login(code);
+        return ResponseEntity.status(HttpStatus.PERMANENT_REDIRECT)
+            .location(URI.create(url))
+            .build();
     }
 }

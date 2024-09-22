@@ -32,6 +32,7 @@ jobs:
           echo "jwt.access-token-expiration-time=$JWT_ACCESS_TOKEN_EXPIRATION_TIME" >> ./src/main/resources/application-private.properties
           echo "kakao.client-id=$KAKAO_CLIENT_ID" >> ./src/main/resources/application-private.properties
           echo "kakao.redirect-uri=$KAKAO_REDIRECT_URI" >> ./src/main/resources/application-private.properties
+          echo "front-end.main-url=$FRONT_END_MAIN_URL" >> ./src/main/resources/application-private.properties
         env:
           DB_URL: ${{ secrets.DB_URL }}
           DB_USER: ${{ secrets.DB_USER }}
@@ -40,6 +41,7 @@ jobs:
           JWT_ACCESS_TOKEN_EXPIRATION_TIME: ${{ secrets.JWT_ACCESS_TOKEN_EXPIRATION_TIME }}
           KAKAO_CLIENT_ID: ${{ secrets.KAKAO_CLIENT_ID }}
           KAKAO_REDIRECT_URI: ${{ secrets.KAKAO_REDIRECT_URI }}
+          FRONT_END_MAIN_URL: ${{ secrets.FRONT_END_MAIN_URL }}
 
       - name: Change gradlew permissions
         run: chmod +x ./gradlew

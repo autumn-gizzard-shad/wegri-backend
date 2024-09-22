@@ -13,7 +13,6 @@ import org.springframework.web.client.RestTemplate;
 import shad.wegri.domain.Member;
 import shad.wegri.dto.KakaoProfileDto;
 import shad.wegri.dto.KakaoTokenDto;
-import shad.wegri.dto.LoginResponse;
 import shad.wegri.exception.InvalidKakaoTokenException;
 import shad.wegri.repository.KakaoTokenRepository;
 import shad.wegri.repository.MemberRepository;
@@ -45,7 +44,7 @@ public class KakaoLoginService {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
-    public LoginResponse login(String code) {
+    public String login(String code) {
         var kakaoTokenDto = getKakaoToken(code);
         var kakaoProfileDto = getKakaoProfile(kakaoTokenDto.access_token());
 
@@ -57,7 +56,7 @@ public class KakaoLoginService {
                 .id(email)
                 .password(bCryptPasswordEncoder.encode(id))
                 .build());
-        return new LoginResponse(jwtProvider.createToken(email));
+        return jwtProvider.createToken(email);
     }
 
     private KakaoTokenDto getKakaoToken(String code) {
