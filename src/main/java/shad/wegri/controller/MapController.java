@@ -51,14 +51,14 @@ public class MapController {
         else results = mapList;
 
         return ResponseEntity.status(HttpStatus.OK)
-            .body(new MapSearchResponseDto(HttpStatus.OK, "Map searched successfully", results));
+            .body(new MapSearchResponseDto(results));
     }
 
     @GetMapping("/more")
     public ResponseEntity<MapSearchResponseDto> searchMoreMap() { // 더보기 누를 경우 맵 추가
 
         return ResponseEntity.status(HttpStatus.OK)
-            .body(new MapSearchResponseDto(HttpStatus.OK, "More map searched successfully", mapList));
+            .body(new MapSearchResponseDto(mapList));
     }
 
     // search pin

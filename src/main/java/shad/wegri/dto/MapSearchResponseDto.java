@@ -7,7 +7,5 @@ import org.springframework.http.HttpStatus;
 @AllArgsConstructor
 @Getter
 public class MapSearchResponseDto {
-    private HttpStatus result;
-    private String message;
     private List<MapSearchDto> map_list;
 }
