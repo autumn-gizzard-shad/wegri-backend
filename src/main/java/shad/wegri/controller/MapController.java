@@ -39,7 +39,7 @@ public class MapController {
         Map savedMap = mapService.saveMap(request);
 
         return ResponseEntity.status(HttpStatus.CREATED)
-            .body(new AddResponseDto(HttpStatus.CREATED, "Map added successfully", savedMap.getId()));
+            .body(new AddResponseDto(savedMap.getId()));
     }
 
     // map search
@@ -61,6 +61,7 @@ public class MapController {
             .body(new MapSearchResponseDto(HttpStatus.OK, "More map searched successfully", mapList));
     }
 
+    // search pin
     @GetMapping("/{map_id}/pins")
     public ResponseEntity<?> searchPin(@PathVariable("map_id") long map_id) { // 핀 조회
         if (map_id == 1){
@@ -73,6 +74,7 @@ public class MapController {
         }
     }
 
+    // add pin
     @PostMapping("/{map_id}/pins")
     public ResponseEntity<AddResponseDto> savePin(@PathVariable("map_id") long map_id,
                                         @RequestBody PinAddRequestDto request, @LoginMemberId String memberId) { // 핀 추가
@@ -89,7 +91,7 @@ public class MapController {
         Pin savedPin = pinService.savePin(request);
 
         return ResponseEntity.status(HttpStatus.OK)
-            .body(new AddResponseDto(HttpStatus.OK, "Success", savedPin.getId()));
+            .body(new AddResponseDto(savedPin.getId()));
     }
 }
 
