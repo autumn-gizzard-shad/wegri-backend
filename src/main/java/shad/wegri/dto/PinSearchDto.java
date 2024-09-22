@@ -4,6 +4,7 @@ import lombok.*;
 
 @Data
 @Getter
+@NoArgsConstructor
 @AllArgsConstructor
 public class PinSearchDto {
     private String pin_date;
