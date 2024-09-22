@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import shad.wegri.dto.BicycleSearchDto;
+import shad.wegri.dto.PinSearchDto;
 import shad.wegri.repository.PinRepository;
 import shad.wegri.domain.Pin;
 
@@ -47,5 +48,15 @@ public class BicycleService {
         else {
             return false;
         }
+    }
+
+    public Boolean returnBicycle(Long pinId, PinSearchDto request){
+        if (pinRepository.findByPinIdAndMapId(pinId, BicycleMapId) == 0) {
+            pinRepository.updateReturnBicycle(request.getPin_date(), request.getPin_latitude(),
+                request.getPin_longitude(), request.getPin_image(), true, BicycleMapId, pinId);
+
+            return true;
+        }
+        return false;
     }
 }

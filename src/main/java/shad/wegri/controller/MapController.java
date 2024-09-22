@@ -64,7 +64,7 @@ public class MapController {
     // search pin
     @GetMapping("/{map_id}/pins")
     public ResponseEntity<?> searchPin(@PathVariable("map_id") long map_id) { // 핀 조회
-        if (map_id == 1){
+        if (map_id == 1L){
             return ResponseEntity.status(HttpStatus.OK)
                 .body(new BicycleSearchResponseDto(HttpStatus.OK, "Bicycle Pin searched successfully", bicycleService.getBicyclePins()));
         }

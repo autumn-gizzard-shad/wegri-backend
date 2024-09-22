@@ -23,8 +23,21 @@ public interface PinRepository extends JpaRepository<Pin, Long> {
 
     @Modifying
     @Transactional
-    @Query("UPDATE Pin p SET p.is_rent = :is_rent WHERE p.map_id = :map_id AND p.id = :pin_id")
+    @Query(value = "UPDATE pin p SET p.is_rent = :is_rent WHERE p.map_id = :map_id AND p.id = :pin_id", nativeQuery = true)
     void updateIsRentByMapIdAndPinId(@Param("is_rent") boolean isRent,
         @Param("map_id") Long mapId,
         @Param("pin_id") Long pinId);
+
+    @Modifying
+    @Transactional
+    @Query(value = "update pin p set p.date = :date, p.latitude = :latitude, p.longitude = :longitude, "
+        + "p.image = :image, p.is_rent = :is_rent where p.map_id = :map_id and p.id = :pin_id", nativeQuery = true)
+    void updateReturnBicycle(@Param("date") String date,
+        @Param("latitude") double latitude,
+        @Param("longitude") double longitude,
+        @Param("image") String image,
+        @Param("is_rent") boolean isRent,
+        @Param("map_id") Long mapId,
+        @Param("pin_id") Long pinId
+    );
 }
