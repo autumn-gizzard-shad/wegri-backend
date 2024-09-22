@@ -1,10 +1,27 @@
 package shad.wegri.domain;
 
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.Setter;
+import shad.wegri.dto.PinSearchDto;
 
-@RequiredArgsConstructor
 @Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Builder
 @Getter
 @Setter
 @Table(name = "Pin")
@@ -13,10 +30,6 @@ public class Pin {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // DB에서 1씩 증가시키면서 id 생성
     @Column(name = "id", updatable = false)
     private long id;
-
-    @Column(name = "map_id")
-    @NonNull
-    private long map_id;
 
     @Column(name = "date")
     @NonNull
@@ -39,21 +52,11 @@ public class Pin {
     @Column(name = "is_rent")
     private Boolean is_rent;
 
-    public Pin(){
-        this.map_id = 0;
-        this.date = "20240921";
-        this.latitude = 0.0;
-        this.longitude = 0.0;
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "map_id")
+    private Map map;
 
-    @Builder
-    public Pin(long map_id, String date, double latitude, double longitude, String image, String provider, Boolean is_rent) {
-        this.map_id = map_id;
-        this.date = date;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.image = image;
-        this.provider = provider;
-        this.is_rent = is_rent;
+    public PinSearchDto toSearchDto() {
+        return new PinSearchDto(date, latitude, longitude, image);
     }
 }

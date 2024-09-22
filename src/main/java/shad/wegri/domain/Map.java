@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Builder
 @Getter
 @Table(name = "Map")
 public class Map {
@@ -22,11 +25,4 @@ public class Map {
     @Column(name = "emoji")
     @NonNull
     private String emoji;
-
-    @Builder
-    public Map(String title, String desc, String emoji){
-        this.title = title;
-        this.desc = desc;
-        this.emoji = emoji;
-    }
 }
